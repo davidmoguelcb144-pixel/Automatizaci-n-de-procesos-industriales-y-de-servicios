@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automatización de procesos industriales y de servicios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg:            #1a1220;
+    --bg-panel:      #241723;
+    --card:          #2c1b26;
+    --line:          #4a3038;
+    --glow:          #f2b26b;
+    --glow-dim:      #c99a72;
+    --dusk:          #6b4a63;
+    --ember:         #d9724f;
+    --text:          #f7ece2;
+    --text-dim:      #b39a92;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3, .eyebrow-num{
+    font-family:'Space Grotesk', sans-serif;
+  }
+
+  a{ color:inherit; }
+
+  /* ---------- helpers ---------- */
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 6vw;
+  }
+
+  @media(min-width:900px){
+    .wrap{ padding:0 64px; }
+  }
+
+  /* ================= PORTADA ================= */
+
+  .portada{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    overflow:hidden;
+    background:
+      radial-gradient(130% 85% at 80% 4%, rgba(242,178,107,0.22), transparent 55%),
+      radial-gradient(100% 70% at 50% 40%, rgba(217,114,79,0.14), transparent 60%),
+      radial-gradient(90% 60% at 15% 100%, rgba(107,74,99,0.30), transparent 60%),
+      var(--bg);
+  }
+
+  /* mercurio: rio metalico que cruza la portada */
+  .sunset-glow{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    opacity:0.9;
+  }
+
+  .portada-top{
+    position:relative;
+    z-index:2;
+    padding-top:48px;
+  }
+
+  .mark{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:0.8rem;
+    letter-spacing:0.02em;
+    color:var(--glow-dim);
+  }
+
+  .mark-dot{
+    width:9px; height:9px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--glow),var(--dusk));
+    flex-shrink:0;
+  }
+
+  .portada-main{
+    position:relative;
+    z-index:2;
+    padding:64px 0 40px;
+  }
+
+  .kicker{
+    font-size:0.85rem;
+    color:var(--ember);
+    font-weight:500;
+    margin-bottom:22px;
+    max-width:32ch;
+  }
+
+  h1.titulo{
+    font-size:clamp(2.3rem, 6.2vw, 4.6rem);
+    font-weight:600;
+    letter-spacing:-0.015em;
+    line-height:1.04;
+    max-width:14ch;
+    color:var(--text);
+  }
+
+  h1.titulo em{
+    font-style:normal;
+    color:var(--glow);
+  }
+
+  .titulo-regla{
+    width:64px;
+    height:3px;
+    margin:34px 0 0;
+    background:linear-gradient(90deg, var(--dusk), var(--glow));
+  }
+
+  .portada-footer{
+    position:relative;
+    z-index:2;
+    padding-bottom:52px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    border-top:1px solid var(--line);
+    padding-top:26px;
+  }
+
+  .autor-label{
+    font-size:0.72rem;
+    color:var(--text-dim);
+    text-transform:uppercase;
+    letter-spacing:0.09em;
+  }
+
+  .autor-nombre{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:1.15rem;
+    font-weight:600;
+    color:var(--text);
+  }
+
+  .autor-detalle{
+    font-size:0.9rem;
+    color:var(--glow-dim);
+  }
+
+  .scroll-hint{
+    position:absolute;
+    right:6vw;
+    bottom:52px;
+    z-index:2;
+    display:none;
+    align-items:center;
+    gap:10px;
+    font-size:0.75rem;
+    color:var(--text-dim);
+    letter-spacing:0.04em;
+  }
+
+  @media(min-width:900px){
+    .scroll-hint{ display:flex; right:64px; }
+    .portada-footer{ flex-direction:row; align-items:baseline; gap:18px; }
+  }
+
+  .scroll-hint svg{ width:14px; height:14px; }
+
+  /* ================= CATALOGO ================= */
+
+  .catalogo{
+    background:var(--bg-panel);
+    padding:88px 0 100px;
+    border-top:1px solid var(--line);
+  }
+
+  .catalogo-head{
+    max-width:46ch;
+    margin-bottom:56px;
+  }
+
+  .catalogo-eyebrow{
+    font-size:0.78rem;
+    color:var(--ember);
+    letter-spacing:0.03em;
+    margin-bottom:14px;
+    font-weight:500;
+  }
+
+  .catalogo-head h2{
+    font-size:clamp(1.6rem, 3.4vw, 2.3rem);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.15;
+    color:var(--text);
+    margin-bottom:14px;
+  }
+
+  .catalogo-head p{
+    color:var(--text-dim);
+    font-size:0.98rem;
+    max-width:42ch;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+
+  @media(min-width:700px){
+    .grid{ grid-template-columns:1fr 1fr; }
+  }
+
+  .card{
+    background:var(--card);
+    padding:38px 32px 34px;
+    display:flex;
+    flex-direction:column;
+    gap:26px;
+    min-height:260px;
+    transition:background 0.25s ease;
+  }
+
+  .card:hover{ background:#331f2c; }
+
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+  }
+
+  .eyebrow-num{
+    font-size:0.78rem;
+    color:var(--text-dim);
+    letter-spacing:0.04em;
+  }
+
+  .icon-box{
+    width:58px;
+    height:58px;
+    flex-shrink:0;
+    border:1px solid var(--line);
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(160deg, rgba(217,114,79,0.14), rgba(0,0,0,0));
+  }
+
+  .icon-box svg{
+    width:30px;
+    height:30px;
+    stroke:var(--glow);
+    fill:none;
+    stroke-width:1.4;
+  }
+
+  .card h3{
+    font-size:1.2rem;
+    font-weight:600;
+    color:var(--text);
+    letter-spacing:-0.005em;
+  }
+
+  .card p.tag{
+    font-size:0.88rem;
+    color:var(--text-dim);
+    max-width:34ch;
+  }
+
+  .card-foot{
+    margin-top:auto;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.75rem;
+    color:var(--glow-dim);
+  }
+
+  .pulso{
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--ember);
+  }
+
+  footer.pie{
+    padding:34px 0;
+    text-align:center;
+    font-size:0.78rem;
+    color:var(--text-dim);
+    background:var(--bg-panel);
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ================= PORTADA ================= -->
+<header class="portada">
+
+  <svg class="sunset-glow" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#f2b26b" stop-opacity="0.9"/>
+        <stop offset="55%" stop-color="#d9724f" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#d9724f" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#f2b26b" stop-opacity="0.30"/>
+        <stop offset="100%" stop-color="#6b4a63" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+
+    <!-- sol -->
+    <circle cx="880" cy="230" r="230" fill="url(#sunGrad)"/>
+    <circle cx="880" cy="230" r="58" fill="#f2b26b" opacity="0.55"/>
+
+    <!-- linea de horizonte -->
+    <line x1="-50" y1="430" x2="1260" y2="430" stroke="#d9724f" stroke-opacity="0.25" stroke-width="1"/>
+
+    <!-- reflejo ondulado sobre el agua -->
+    <rect x="0" y="430" width="1200" height="370" fill="url(#waterGrad)"/>
+    <path d="M 780 470 Q 880 480 980 470" stroke="#f2b26b" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+    <path d="M 800 510 Q 880 522 960 510" stroke="#f2b26b" stroke-opacity="0.4" stroke-width="2" fill="none"/>
+    <path d="M 760 555 Q 880 570 1000 555" stroke="#f2b26b" stroke-opacity="0.32" stroke-width="2" fill="none"/>
+    <path d="M 730 610 Q 880 628 1030 610" stroke="#d9724f" stroke-opacity="0.24" stroke-width="2" fill="none"/>
+    <path d="M 690 675 Q 880 696 1070 675" stroke="#d9724f" stroke-opacity="0.16" stroke-width="2" fill="none"/>
+
+    <!-- siluetas lejanas de la orilla -->
+    <path d="M -50 430 C 120 415, 260 425, 420 430 C 560 434, 640 420, 780 430 L 780 460 L -50 460 Z" fill="#1a1220" opacity="0.55"/>
+  </svg>
+
+  <div class="wrap portada-top">
+    <div class="mark"><span class="mark-dot"></span>CBTIS 144 — Especialidad de IA</div>
+  </div>
+
+  <div class="wrap portada-main">
+    <p class="kicker">Trabajo académico</p>
+    <h1 class="titulo">Automatización de procesos <em>industriales</em> y de servicios</h1>
+    <div class="titulo-regla"></div>
+  </div>
+
+  <div class="wrap portada-footer">
+    <div>
+      <p class="autor-label">Elaborado por</p>
+      <p class="autor-nombre">David Yael Gutiérrez Moguel</p>
+    </div>
+    <p class="autor-detalle">Especialidad de Inteligencia Artificial · CBTIS 144</p>
+  </div>
+
+  <div class="scroll-hint">
+    Ver catálogo
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" fill="none">
+      <path d="M12 4v16M6 14l6 6 6-6"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ================= CATALOGO ================= -->
+<main class="catalogo">
+  <div class="wrap">
+
+    <div class="catalogo-head">
+      <p class="catalogo-eyebrow">Catálogo de temas</p>
+      <h2>Cuatro líneas de trabajo dentro de la automatización</h2>
+      <p>Los temas específicos aún están por definirse. Cada tarjeta representa un espacio reservado dentro del catálogo.</p>
+    </div>
+
+    <div class="grid">
+
+      <!-- Card 1 - proceso mecanico / engrane -->
+      <article class="card">
+        <div class="card-top">
+          <span class="eyebrow-num">Tema 01</span>
+          <div class="icon-box">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M24 6v5M24 37v5M42 24h-5M11 24H6M35.6 12.4l-3.5 3.5M15.9 32.1l-3.5 3.5M35.6 35.6l-3.5-3.5M15.9 15.9l-3.5-3.5"/>
+              <circle cx="24" cy="24" r="9"/>
+              <circle cx="24" cy="24" r="3.2"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3>Por definir</h3>
+          <p class="tag">Espacio reservado para un proceso mecánico o de manufactura.</p>
+        </div>
+        <div class="card-foot"><span class="pulso"></span>Pendiente de asignar</div>
+      </article>
+
+      <!-- Card 2 - control / circuito -->
+      <article class="card">
+        <div class="card-top">
+          <span class="eyebrow-num">Tema 02</span>
+          <div class="icon-box">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <rect x="17" y="17" width="14" height="14" rx="1.5"/>
+              <path stroke-linecap="round" d="M24 6v9M24 33v9M6 24h9M33 24h9M11 11l6.5 6.5M30.5 30.5L37 37M37 11l-6.5 6.5M17.5 30.5L11 37"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3>Por definir</h3>
+          <p class="tag">Espacio reservado para un sistema de control o instrumentación.</p>
+        </div>
+        <div class="card-foot"><span class="pulso"></span>Pendiente de asignar</div>
+      </article>
+
+      <!-- Card 3 - brazo robotico -->
+      <article class="card">
+        <div class="card-top">
+          <span class="eyebrow-num">Tema 03</span>
+          <div class="icon-box">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 40h10M14 40V27l10-6"/>
+              <circle cx="14" cy="24" r="3"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M24 21l8-9"/>
+              <circle cx="33" cy="10" r="3"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M33 13v6l6 4"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3>Por definir</h3>
+          <p class="tag">Espacio reservado para un caso de automatización robótica.</p>
+        </div>
+        <div class="card-foot"><span class="pulso"></span>Pendiente de asignar</div>
+      </article>
+
+      <!-- Card 4 - red / servicios -->
+      <article class="card">
+        <div class="card-top">
+          <span class="eyebrow-num">Tema 04</span>
+          <div class="icon-box">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="10" r="3.4"/>
+              <circle cx="10" cy="34" r="3.4"/>
+              <circle cx="38" cy="34" r="3.4"/>
+              <circle cx="24" cy="26" r="3.4"/>
+              <path stroke-linecap="round" d="M24 13.4V22.6M21.2 27.9L12.8 32M26.8 27.9l8.4 4.1"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3>Por definir</h3>
+          <p class="tag">Espacio reservado para un proceso de automatización de servicios.</p>
+        </div>
+        <div class="card-foot"><span class="pulso"></span>Pendiente de asignar</div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<footer class="pie">
+  David Yael Gutiérrez Moguel · Especialidad de IA · CBTIS 144
+</footer>
+
+</body>
+</html>
